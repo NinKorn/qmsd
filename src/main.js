@@ -14,9 +14,12 @@ Vue.use(Vant);
 //导入样式清除默认样式
 
 //导入vue-resource
-import vueResource from 'vue-resource'
-Vue.use(vueResource);
-
+// import vueResource from 'vue-resource'
+// Vue.use(vueResource);
+//导入axios
+import axios from 'axios'
+axios.defaults.baseURL = 'http://litc.pro:9999/v1';
+Vue.prototype.$http = axios
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
