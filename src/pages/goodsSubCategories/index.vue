@@ -1,37 +1,79 @@
 <template>
   <div class="goods-sub-categories">
-    <van-list v-model="loading" :finished="finished" finished-text="没有更多了" @load="onLoad">
-      <van-cell v-for="item in list" :key="item" :title="item"/>
-    </van-list>
+    <van-nav-bar :title="title" left-text="返回" left-arrow @click-left="onClickLeft"/>
+
+    <scroller :on-refresh="refresh" :on-infinite="infinite" ref="my_scroller">
+      <router-link
+        class="lise"
+        v-for="item in list"
+        :key="item.id"
+        :to="'/goodsInfo/'+ item.id"
+        tag="div"
+      >
+        <img :src="item.cover_img" alt srcset>
+        <div class="list-info">
+          <h3>
+            <span>商品名称：</span>
+            {{ item.name }}
+          </h3>
+          <h4>
+            <span>市场价</span>
+            {{ item.price }}
+          </h4>
+        </div>
+      </router-link>
+    </scroller>
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
+      id: this.$route.params.id,
+      title: this.$route.params.title,
+      page: 0,
+      pageSize: 10,
       list: [],
-      loading: false,
-      finished: false
+      totalCount: ""
     };
   },
-  created() {},
+  created() {
+  },
   methods: {
     //获取列表数据
-    getGoodsSubCategories() {},
-    onLoad() {
-      // 异步更新数据
-      setTimeout(() => {
-        for (let i = 0; i < 10; i++) {
-          this.list.push(this.list.length + 1);
-        }
-        // 加载状态结束
-        this.loading = false;
-
-        // 数据全部加载完成
-        if (this.list.length >= 40) {
-          this.finished = true;
-        }
-      }, 500);
+    getGoodsSubCategories() {
+      return this.$http
+        .get("/goods/getGoodsList", {
+          params: {
+            page: this.page,
+            pageSize: this.pageSize
+          }
+        })
+        .then(res => {
+          console.log(res);
+          this.list = this.list.concat(res.data.data.goods);
+          this.totalCount = res.data.data.totalCount;
+          this.$refs.my_scroller.finishInfinite(true);
+        });
+    },
+    //下拉刷新
+    refresh() {
+      this.list = [];
+      this.getGoodsSubCategories().then(() => {
+        this.$refs.my_scroller.finishPullToRefresh();
+      });
+    },
+    //上拉加载更多
+    infinite(done) {
+      // setTimeout(() => {
+        console.log("加载更多");
+        this.page++;
+        this.getGoodsSubCategories();
+        // done();
+      // }, 2000);
+    },
+    onClickLeft() {
+      history.back();
     }
   }
 };
@@ -39,4 +81,35 @@ export default {
 
 
 <style lang="less" scoped>
+.goods-sub-categories {
+  padding: 0 5px;
+  ._v-container {
+    margin-top: 55px;
+    .lise {
+      height: 110px;
+      display: flex;
+      align-content: center;
+      border: 1px solid #ccc;
+      margin: 0 5px 5px;
+      box-shadow: 0 0 4px #ccc;
+
+      img {
+        width: 100px;
+        height: 100px;
+      }
+      .list-info {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        h3 {
+          font-size: 12px;
+          // padding: 10px;
+        }
+        h4 {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
 </style>

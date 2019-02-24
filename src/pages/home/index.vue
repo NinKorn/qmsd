@@ -20,8 +20,10 @@
     <!-- 商品分类 -->
     <van-row class="goods-categories">
       <van-col span="8" v-for="item in goodsSubCategories" :key="item.id">
-        <img :src="item.img" alt="" srcset="">
-        <p>{{ item.name }}</p>
+        <router-link :to="'/goodsSubCategories/'+item.id +'/' + item.name">
+          <img :src="item.img" alt srcset>
+          <p>{{ item.name }}</p>
+        </router-link>
       </van-col>
     </van-row>
   </div>
@@ -43,7 +45,7 @@ export default {
     //获取轮播图
     getBanner() {
       this.$http.get("/home/getBanners").then(res => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         this.bannerImg = res.data.data;
       });
     },
@@ -57,7 +59,7 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.goodsSubCategories = res.data.data.cates;
         });
     }
@@ -99,7 +101,7 @@ export default {
       img {
         width: 60%;
       }
-      p{
+      p {
         font-size: 14px;
         color: #bbb;
       }

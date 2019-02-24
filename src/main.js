@@ -18,8 +18,13 @@ Vue.use(Vant);
 // Vue.use(vueResource);
 //导入axios
 import axios from 'axios'
-axios.defaults.baseURL = 'http://litc.pro:9999/v1';
+axios.defaults.baseURL = 'http://www.litc.pro:9999/v1';
 Vue.prototype.$http = axios
+
+//导入vue-scroller
+import VueScroller from 'vue-scroller'
+Vue.use(VueScroller)
+console.dir(Vue)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
