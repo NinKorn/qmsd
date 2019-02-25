@@ -26,6 +26,8 @@
         </router-link>
       </van-col>
     </van-row>
+
+    <bottomCom></bottomCom>
   </div>
 </template>
 <script>
@@ -68,6 +70,7 @@ export default {
 </script>
 <style lang="less" scoped>
 .home-tem {
+  margin-bottom: 50px;
   .serach-bar {
     position: fixed;
     top: 0;

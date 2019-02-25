@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import homeComponent from '@/pages/home'
 import goodsSubCategoriesComponent from '@/pages/goodsSubCategories'
 import goodsInfoComponent from '@/pages/goodsInfo'
+import shopcarComponent from '@/pages/shopcar'
 
 Vue.use(Router)
 export default new Router({
@@ -10,6 +11,7 @@ export default new Router({
     {path:'/',redirect:'/home'},
     {path:'/home',component:homeComponent},
     {path:'/goodsSubCategories/:id/:title',component:goodsSubCategoriesComponent},
-    {path:'/goodsInfo/:id',component:goodsInfoComponent}
+    {path:'/goodsInfo/:id',component:goodsInfoComponent},
+    {path:'/shopcar',component:shopcarComponent}
   ]
 })

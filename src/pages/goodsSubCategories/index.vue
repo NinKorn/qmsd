@@ -50,7 +50,7 @@ export default {
           }
         })
         .then(res => {
-          console.log(res);
+          // console.log(res);
           this.list = this.list.concat(res.data.data.goods);
           this.totalCount = res.data.data.totalCount;
           this.$refs.my_scroller.finishInfinite(true);
@@ -58,6 +58,7 @@ export default {
     },
     //下拉刷新
     refresh() {
+      this.page = 1;
       this.list = [];
       this.getGoodsSubCategories().then(() => {
         this.$refs.my_scroller.finishPullToRefresh();
@@ -66,7 +67,7 @@ export default {
     //上拉加载更多
     infinite(done) {
       // setTimeout(() => {
-        console.log("加载更多");
+        // console.log("加载更多");
         this.page++;
         this.getGoodsSubCategories();
         // done();
@@ -83,6 +84,12 @@ export default {
 <style lang="less" scoped>
 .goods-sub-categories {
   padding: 0 5px;
+  .van-nav-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
   ._v-container {
     margin-top: 55px;
     .lise {

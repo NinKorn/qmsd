@@ -6,16 +6,13 @@ import router from './router'
 
 Vue.config.productionTip = false
 
-
 //导入vant组件
 import Vant from 'vant';
 import 'vant/lib/index.css';
 Vue.use(Vant);
 //导入样式清除默认样式
+import './lib/style/comm.css'
 
-//导入vue-resource
-// import vueResource from 'vue-resource'
-// Vue.use(vueResource);
 //导入axios
 import axios from 'axios'
 axios.defaults.baseURL = 'http://www.litc.pro:9999/v1';
@@ -24,7 +21,10 @@ Vue.prototype.$http = axios
 //导入vue-scroller
 import VueScroller from 'vue-scroller'
 Vue.use(VueScroller)
-console.dir(Vue)
+
+//注册底部导航组件
+import bottomCom from './components/bottomComponents'
+Vue.component('bottomCom', bottomCom)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
