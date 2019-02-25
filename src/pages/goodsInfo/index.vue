@@ -36,15 +36,16 @@
     </div>
 
     <van-goods-action>
-      <van-goods-action-mini-btn icon="chat-o" text="客服" @click="onClickMiniBtn"/>
+      <van-goods-action-mini-btn icon="chat-o" text="客服"/>
       <van-goods-action-mini-btn icon="cart-o" text="购物车" @click="onClickMiniBtn"/>
       <van-goods-action-big-btn text="加入购物车" @click="onClickBigBtn"/>
-      <van-goods-action-big-btn primary text="立即购买" @click="onClickBigBtn"/>
+      <van-goods-action-big-btn primary text="立即购买"/>
     </van-goods-action>
   </div>
 </template>
 
 <script>
+import { Toast } from 'vant';
 export default {
   data() {
     return {
@@ -57,21 +58,36 @@ export default {
     this.getGoodsInfo();
   },
   methods: {
+    
     //获取商品详情
     getGoodsInfo() {
       this.$http.get("/goods/getGoodsInfo/" + this.id).then(res => {
         console.log(res);
-        this.goodsinfo = res.data.data;
+        this.goodsinfo = res.data;
       });
     },
     onClickLeft() {
       history.back();
     },
-    onClickMiniBtn() {
-      Toast("点击图标");
-    },
+    //跳转到购物车
+    onClickMiniBtn() {},
+    //添加购物车
     onClickBigBtn() {
-      Toast("点击按钮");
+      //获取商品id
+      let id = this.getGoodsInfo.id;
+      //获取token
+      // let Authorization = JSON.parse(localStorage.getItem('token'));
+      let count = this.buyNum;
+      //向后台发送请求
+      this.$http
+        .post('cart/postGoodsToCart/'+this.id, {
+          id: this.id,
+          count: this.buyNum
+        })
+        .then(res => {
+          Toast.success(res.succMsg);
+        })
+        
     }
   }
 };

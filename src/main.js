@@ -16,6 +16,17 @@ import './lib/style/comm.css'
 //导入axios
 import axios from 'axios'
 axios.defaults.baseURL = 'http://www.litc.pro:9999/v1';
+//请求拦截
+axios.interceptors.request.use(config => {
+  if(localStorage.getItem('token')){
+    config.headers.common['Authorization'] = JSON.parse(localStorage.getItem('token')) || '';
+  }
+  return config;
+})
+//回复拦截
+axios.interceptors.response.use(response => {
+  return response.data
+})
 Vue.prototype.$http = axios
 
 //导入vue-scroller

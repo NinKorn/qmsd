@@ -15,6 +15,14 @@ export default {
     return {
       active: 0
     };
+  },
+  created(){
+    this.setToken();
+  },
+  methods: {
+    setToken(){
+      localStorage.setItem('token',JSON.stringify('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzZWNyZXQiOiJpdGNhc3Qtd2giLCJpYXQiOjE1NTAzMjMwODgsImV4cCI6MTU1MjkxNTA4OH0.s_oX0xqCM8XHg3JEjTEBbE24gX3JnKShDzGcAdZ5aIU'));
+    }
   }
 };
 </script>

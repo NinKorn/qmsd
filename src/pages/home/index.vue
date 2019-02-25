@@ -48,7 +48,7 @@ export default {
     getBanner() {
       this.$http.get("/home/getBanners").then(res => {
         // console.log(res.data.data);
-        this.bannerImg = res.data.data;
+        this.bannerImg = res.data;
       });
     },
     //获取商品分类
@@ -62,7 +62,7 @@ export default {
         })
         .then(res => {
           // console.log(res);
-          this.goodsSubCategories = res.data.data.cates;
+          this.goodsSubCategories = res.data.cates;
         });
     }
   }

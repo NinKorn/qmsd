@@ -51,8 +51,8 @@ export default {
         })
         .then(res => {
           // console.log(res);
-          this.list = this.list.concat(res.data.data.goods);
-          this.totalCount = res.data.data.totalCount;
+          this.list = this.list.concat(res.data.goods);
+          this.totalCount = res.data.totalCount;
           this.$refs.my_scroller.finishInfinite(true);
         });
     },
@@ -66,12 +66,8 @@ export default {
     },
     //上拉加载更多
     infinite(done) {
-      // setTimeout(() => {
-        // console.log("加载更多");
         this.page++;
         this.getGoodsSubCategories();
-        // done();
-      // }, 2000);
     },
     onClickLeft() {
       history.back();
