@@ -45,6 +45,8 @@ export default {
       return this.$http
         .get("/goods/getGoodsList", {
           params: {
+            cateId: this.id,
+            keys: this.title,
             page: this.page,
             pageSize: this.pageSize
           }

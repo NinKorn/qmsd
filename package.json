@@ -10,9 +10,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "array-includes": "^3.0.3",
     "axios": "^0.18.0",
+    "has": "^1.0.3",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "object-keys": "^1.1.0",
     "vant": "^1.6.4",
     "vue": "^2.5.2",
     "vue-resource": "^1.5.1",
